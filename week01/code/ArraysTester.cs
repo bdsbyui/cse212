@@ -34,12 +34,21 @@ public static class ArraysTester {
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     private static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // PLAN................................................................
+        // The length parameter represents "n", and because the output requires
+        // this length, the efficiency cannot be better than O(n), nor should
+        // it be worse than O(n). To achieve O(n), implentation consists of a 
+        // for loop of "n" iterations. Each iteration represents an index of 
+        // the output array, and is assigned the value of a function of that 
+        // index that equals the next multiple of the number.
 
-        return new double[0]; // replace this return statement with your own
+        // IMPLEMENTATION......................................................
+        var array = new double[length];
+        for (int i = 0; i < length; i ++)
+        {
+            array[i] = number * (i + 1);
+        }
+        return array;
     }
     
     /// <summary>
@@ -52,10 +61,14 @@ public static class ArraysTester {
     /// </summary>
     private static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // PLAN................................................................
+        // Get the range that rotates right without wrapping to the front of 
+        // the list. Remove that range so that the wrapping elements move to 
+        // the beginning. Add the rotating range to the end of the list.
 
+        // IMPLEMENTATION......................................................
+        var rightMovers = data.GetRange(0, data.Count - amount);
+        data.RemoveRange(0, data.Count - amount);
+        data.AddRange(rightMovers);
     }
 }

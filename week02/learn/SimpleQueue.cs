@@ -21,6 +21,11 @@ public class SimpleQueue {
         var value = queue.Dequeue();
         Console.WriteLine(value);
         // Defect(s) Found:
+        /* The Dequeue() method erroneously accessed the second element of 
+            _queue at _queue[1] instead of the first element at _queue[0].
+         * The same issue applied for the index passed to the RemoveAt()
+            method.
+         */
 
         Console.WriteLine("------------");
 
@@ -38,7 +43,12 @@ public class SimpleQueue {
         Console.WriteLine(value);
         value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found: 
+        // Defect(s) Found:
+        /* The Enqueue() method erroneously inserted newly enqueued elements to
+            the front of the queue with the Insert() method. By replacing this 
+            method with Add(), newly enqueued elments are placed at the end of
+            _queue. This enables the FIFO attribute expected of queues.
+         */
 
         Console.WriteLine("------------");
 
@@ -55,6 +65,7 @@ public class SimpleQueue {
             Console.WriteLine("I got the exception as expected.");
         }
         // Defect(s) Found: 
+        /* No defect found. */
     }
 
     private readonly List<int> _queue = new();
@@ -64,7 +75,7 @@ public class SimpleQueue {
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+        _queue.Add(value);
     }
 
     /// <summary>
@@ -76,8 +87,8 @@ public class SimpleQueue {
         if (_queue.Count <= 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }

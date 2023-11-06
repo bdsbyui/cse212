@@ -25,7 +25,10 @@ public static class TakingTurns {
         // Console.WriteLine(players);    // This can be un-commented out for debug help
         while (players.Length > 0)
             players.GetNextPerson();
-        // Defect(s) Found: 
+        // Defect(s) Found:
+        /*  PersonQueue.Enqueue() erroneously used the List.Insert() method to add person to the 
+         *  front of the list. Debugged by replacing this with the List.Add() method.
+         */
 
         Console.WriteLine("---------");
 
@@ -49,6 +52,8 @@ public static class TakingTurns {
             players.GetNextPerson();
 
         // Defect(s) Found: 
+        /*  With the Enqueue() method debugged for Test 1, Test 2 runs without error.
+         */
 
         Console.WriteLine("---------");
 
@@ -67,6 +72,9 @@ public static class TakingTurns {
             // Console.WriteLine(players);
         }
         // Defect(s) Found: 
+        /*  The logic in the TakingTurnsQueue.GetNextPerson() method provided consideration for the
+         *  Forever condition. Debugged by adding an else-if statement for when Person.Turns < 1.
+         */
 
         Console.WriteLine("---------");
 
@@ -77,5 +85,7 @@ public static class TakingTurns {
         players = new TakingTurnsQueue();
         players.GetNextPerson();
         // Defect(s) Found:
+        /*  No defect as error message "No one in the queue" is displayed as expected.
+         */
     }
 }

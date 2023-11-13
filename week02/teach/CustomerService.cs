@@ -16,30 +16,97 @@
 public class CustomerService {
     public static void Run() {
         // Example code to see what's in the customer service queue:
-        // var cs = new CustomerService(10);
-        // Console.WriteLine(cs);
 
         // Test Cases
 
-        // Test 1
-        // Scenario: 
-        // Expected Result: 
-        Console.WriteLine("Test 1");
+        // // Test 1
+        // // Scenario: Instance of CustomerService with invalid maxSize argument.
+        // // Expected Result: _maxSize = 10
+        // Console.WriteLine("Test 1: CustomerService(-10)");
+        // var csSizeInvalid = new CustomerService(-10);
+        // Console.WriteLine(csSizeInvalid);
+
+        // // Defect(s) Found: 
+
+        // Console.WriteLine("=================");
+
+        // // Test 2
+        // // Scenario: Instance of CustomerService with maxSize 5.
+        // // Expected Result: _maxSize = 5
+        // Console.WriteLine("Test 2: CustomerService(5)");
+        // var csSizeFive = new CustomerService(5);
+        // Console.WriteLine(csSizeFive);
+
+        // // Defect(s) Found: 
+
+        // Console.WriteLine("=================");
+
+        // // Test 3
+        // // Scenario: Instance of CustomerService with maxSize 100.
+        // // Expected Result: _maxSize = 100
+        // Console.WriteLine("Test 3: CustomerService(100)");
+        // var csSizeHundred = new CustomerService(100);
+        // Console.WriteLine(csSizeHundred);
+
+        // // Defect(s) Found: 
+
+        // Console.WriteLine("=================");
+
+        // // Test 4
+        // // Scenario: Add New customer
+        // // Expected Result: enqueued
+        // Console.WriteLine("Test 4: Add One Customer");
+        // var csAddNew = new CustomerService(5);
+        // csAddNew.AddNewCustomer();
+        // Console.WriteLine(csAddNew);
+
+        // // Defect(s) Found: 
+
+        // Console.WriteLine("=================");
+
+        // Test 5
+        // Scenario: Full
+        // Expected Result: error
+        // Console.WriteLine("Test 5: Full queue");
+        // var csFullQueue = new CustomerService(2);
+        // csFullQueue.AddNewCustomer();
+        // csFullQueue.AddNewCustomer();
+        // csFullQueue.AddNewCustomer();
+        // Console.WriteLine(csFullQueue);
+
+        // Defect(s) Found: 
+
+        // Console.WriteLine("=================");
+
+        // // Test 6
+        // // Scenario: Dequeue
+        // // Expected Result: dequeue
+        // Console.WriteLine("Test 6: Dequeue");
+        // var csDequeue = new CustomerService(2);
+        // csDequeue.AddNewCustomer();
+        // csDequeue.AddNewCustomer();
+        // csDequeue.ServeCustomer();
+        // Console.WriteLine(csDequeue);
+
+        // // Defect(s) Found: 
+
+        // Console.WriteLine("=================");
+
+        // Test 7
+        // Scenario: Serve Empty
+        // Expected Result: error
+        Console.WriteLine("Test 7: Emptied queue");
+        var csDequeue = new CustomerService(2);
+        csDequeue.AddNewCustomer();
+        csDequeue.AddNewCustomer();
+        csDequeue.ServeCustomer();
+        csDequeue.ServeCustomer();
+        csDequeue.ServeCustomer();
+        Console.WriteLine(csDequeue);
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
-
-        // Test 2
-        // Scenario: 
-        // Expected Result: 
-        Console.WriteLine("Test 2");
-
-        // Defect(s) Found: 
-
-        Console.WriteLine("=================");
-
-        // Add more Test Cases As Needed Below
     }
 
     private readonly List<Customer> _queue = new();
@@ -78,7 +145,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -99,9 +166,17 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if (_queue.Count == 0)
+        {
+            Console.WriteLine("Error");
+        }
+        else
+        {
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);
+        }
+        
     }
 
     /// <summary>

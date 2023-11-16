@@ -1,3 +1,4 @@
+using System.Data;
 using System.Text.Json;
 
 public static class SetsAndMapsTester {
@@ -111,17 +112,19 @@ public static class SetsAndMapsTester {
         // To display the pair correctly use something like:
         // Console.WriteLine($"{word} & {pair}");
         // Each pair of words should displayed on its own line.
-        var set = new HashSet<string>(words);
+        HashSet<string> set = new();
         foreach (string word in words)
         {
-            set.Remove(word);
-            char[] wordArray = word.ToCharArray();
-            Array.Reverse(wordArray);
-            string reverse = new(wordArray);
+            char[] array = word.ToCharArray();
+            Array.Reverse(array);
+            string reverse = new(array);
             if (set.Contains(reverse))
             {
                 Console.WriteLine($"{word} & {reverse}");
-                set.Remove(reverse);
+            }
+            else
+            {
+                set.Add(word);
             }
         }
     }
